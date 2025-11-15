@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xsi:type="TaskPaneApp">
+  <Id>C3E4DB88-8FD9-4051-87BB-1DC9BAF0B7D9</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Your Name</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Formula Agent" />
+  <Description DefaultValue="AI-powered formula generator with correlation and MoE" />
+  <IconUrl DefaultValue="https://i.imgur.com/xyz.png" />
+  <SupportUrl DefaultValue="https://github.com/your/repo" />
+  <AppDomains>
+    <AppDomain>AppDomain1</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook" />
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3001/taskpane.html" />
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" V1="1.0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url" />
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="MyGroup">
+                <Label resid="GroupLabel" />
+                <Control xsi:type="Button" id="RunAgent">
+                  <Label resid="RunAgent.Label"/>
+                  <Supertip>
+                    <Title resid="RunAgent.Label" />
+                    <Description resid="RunAgent.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="Icon.32" />
+                    <bt:Image size="80" resid="Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>runAgent</FunctionName>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://i.imgur.com/icon16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://i.imgur.com/icon32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://i.imgur.com/icon80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3001/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="AI Agent"/>
+        <bt:String id="RunAgent.Label" DefaultValue="Run Agent"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="RunAgent.Tooltip" DefaultValue="Generate formulas from text"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
