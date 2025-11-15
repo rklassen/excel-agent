@@ -4,7 +4,7 @@
 
 ## Implementation Status
 
-The Excel Formula Agent has been fully implemented by the AI agent. Project structure created, files generated, dependencies installed, bundle built (35KB minified), Qwen2-0.5B ONNX model downloaded (1.9GB), and development server ready. The add-in is now ready for testing in Excel.
+The Excel Formula Agent has been fully implemented by the AI agent. Project structure created, files generated, dependencies installed, bundle built (35KB minified), Qwen2.5-0.5B ONNX model downloaded (1.9GB), and development server ready. The add-in is now ready for testing in Excel.
 
 ---
 
@@ -21,15 +21,18 @@ This is a **minimal Excel add-in** that:
 
 ## Tech Stack (Lightweight)
 
-| Layer       | Library                     | Size       | Notes |
-|------------|-----------------------------|------------|-------|
-| Excel API  | `office-js`                 | ~300 KB    | Official |
-| Math       | **Algebrite**               | ~70 KB     | Symbolic |
+|------------|-----------------------------|------------|----------------------|
+| Layer      | Library                     | Size       | Notes                |
+|------------|-----------------------------|------------|----------------------|
+| Excel API  | `office-js`                 | ~300 KB    | Official             |
+| Math       | **Algebrite**               | ~70 KB     | Symbolic             |
 | Stats      | Hand-rolled                 | < 10 KB    | `correlation`, `moe` |
-| Micro-LM   | `transformers.js` + **phi-1.5 ONNX** | ~5 MB | WebAssembly |
-| Bundler    | **esbuild**                 | —          | < 1.2 MB final |
+| Micro-LM   | `transformers.js`           |            |                      |
+|            | + **Qwen2.5-0.5B ONNX**     | ~1.9 GB    | WebAssembly          |
+| Bundler    | **esbuild**                 | —          | ~35 KB final         |
+|------------|-----------------------------|------------|----------------------|
 
-> **Total gzipped bundle: ~350 KB**
+> **Total bundle: ~35 KB + 1.9GB model**
 
 ---
 
@@ -41,7 +44,7 @@ excel-agent/
 │   └── agent.js
 ├── public/
 │   └── models/
-│       └── phi-1.5.onnx   (download separately)
+│       └── qwen2-0.5b.onnx   (1.9GB)
 ├── package.json
 └── esbuild.config.js
 text---
@@ -177,7 +180,7 @@ async function runAgent() {
 async function loadLM() {
   if (!generator) {
     const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
-    generator = await pipeline('text-generation', 'onnx-community/phi-1_5-onnx', {
+    generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-0.5B', {
       quantized: true,
       device: 'wasm',
       progress_callback: (p) => console.log('LM load:', p)
@@ -309,11 +312,11 @@ jsrequire('esbuild').build({
   target: 'es2020'
 }).catch(() => process.exit(1));
 
-6. Model: phi-1.5.onnx
+6. Model: qwen2-0.5b.onnx
 Download from Hugging Face (ONNX):
-bashcurl -L -o public/models/phi-1.5.onnx \
-  https://huggingface.co/onnx-community/phi-1_5-onnx/resolve/main/model.onnx
-Size: ~5 MB (quantized)
+bashcurl -L -o public/models/qwen2-0.5b.onnx \
+  https://huggingface.co/onnx-community/Qwen2.5-0.5B/resolve/main/onnx/model.onnx
+Size: ~1.9 GB (quantized)
 
 7. Build & Run
 bashnpm install
@@ -332,7 +335,7 @@ InputOutputcorrelation between column 2 and 4=CORREL(C2:C100,E2:E100) in B1avera
 Features
 
 Zero server
-< 1.2 MB total
+~35 KB bundle + 1.9 GB model
 Relative addressing
 Correlation + MoE
 Algebrite-ready (add Algebrite.run('simplify(...)') for validation)

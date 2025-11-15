@@ -18,7 +18,7 @@
     <Host Name="Workbook" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3001/taskpane.html" />
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" V1="1.0">
@@ -38,7 +38,7 @@
                   </Supertip>
                   <Icon>
                     <bt:Image size="16" resid="Icon.16" />
-                    <bt:Image size="Icon.32" />
+                    <bt:Image size="32" resid="Icon.32" />
                     <bt:Image size="80" resid="Icon.80" />
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
@@ -58,7 +58,7 @@
         <bt:Image id="Icon.80" DefaultValue="https://i.imgur.com/icon80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3001/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="AI Agent"/>

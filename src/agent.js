@@ -140,3 +140,6 @@ async function writeResult(ctx, range, result, intent, startCell) {
 function colToNum(col) {
   return col.split('').reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
 }
+
+// Make runAgent globally available for the HTML button
+window.runAgent = runAgent;

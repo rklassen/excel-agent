@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "esbuild src/agent.js --bundle --minify --format=iife --outfile=public/bundle.js",
-    "serve": "live-server public --port=3001 --host=localhost"
+    "serve": "live-server public --port=3000 --host=localhost"
   },
   "devDependencies": {
     "esbuild": "^0.21.0",
